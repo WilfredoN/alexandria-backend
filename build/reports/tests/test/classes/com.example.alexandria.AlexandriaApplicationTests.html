@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.422s</div>
+<div class="counter">0.412s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">contextLoads()</td>
-<td class="success">0.422s</td>
+<td class="success">0.412s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,8 +87,8 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>22:47:37.106 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.alexandria.AlexandriaApplicationTests]: AlexandriaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-22:47:37.195 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.alexandria.AlexandriaApplication for test class com.example.alexandria.AlexandriaApplicationTests
+<pre>23:09:24.581 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.alexandria.AlexandriaApplicationTests]: AlexandriaApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+23:09:24.677 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.alexandria.AlexandriaApplication for test class com.example.alexandria.AlexandriaApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -98,35 +98,35 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.1.5)
 
-2023-12-09T22:47:37.541+02:00  INFO 19812 --- [    Test worker] c.e.a.AlexandriaApplicationTests         : Starting AlexandriaApplicationTests using Java 20.0.2 with PID 19812 (started by Capybara in C:\alexandria\alexandria-backend)
-2023-12-09T22:47:37.542+02:00  INFO 19812 --- [    Test worker] c.e.a.AlexandriaApplicationTests         : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2023-12-09T22:47:38.134+02:00  INFO 19812 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-12-09T22:47:38.199+02:00  INFO 19812 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59 ms. Found 8 JPA repository interfaces.
-2023-12-09T22:47:38.611+02:00  INFO 19812 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-12-09T22:47:38.801+02:00  INFO 19812 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:a35b20a6-e3b5-4122-a627-7b41e844090b user=SA
-2023-12-09T22:47:38.803+02:00  INFO 19812 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-12-09T22:47:38.874+02:00  INFO 19812 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.22.1 by Redgate
-2023-12-09T22:47:38.874+02:00  INFO 19812 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
-2023-12-09T22:47:38.874+02:00  INFO 19812 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : 
-2023-12-09T22:47:38.925+02:00  INFO 19812 --- [    Test worker] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:a35b20a6-e3b5-4122-a627-7b41e844090b (H2 2.2)
-2023-12-09T22:47:38.932+02:00  WARN 19812 --- [    Test worker] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
-2023-12-09T22:47:38.959+02:00  INFO 19812 --- [    Test worker] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table &quot;PUBLIC&quot;.&quot;flyway_schema_history&quot; does not exist yet
-2023-12-09T22:47:38.962+02:00  INFO 19812 --- [    Test worker] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.019s)
-2023-12-09T22:47:38.969+02:00  INFO 19812 --- [    Test worker] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table &quot;PUBLIC&quot;.&quot;flyway_schema_history&quot; ...
-2023-12-09T22:47:38.999+02:00  INFO 19812 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema &quot;PUBLIC&quot;: &lt;&lt; Empty Schema &gt;&gt;
-2023-12-09T22:47:39.012+02:00  INFO 19812 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;PUBLIC&quot; to version &quot;0 - realization&quot;
-2023-12-09T22:47:39.042+02:00  INFO 19812 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;PUBLIC&quot; to version &quot;1 - isadmin&quot;
-2023-12-09T22:47:39.068+02:00  INFO 19812 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;PUBLIC&quot; to version &quot;2 - teacher-subjects&quot;
-2023-12-09T22:47:39.076+02:00  INFO 19812 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Successfully applied 3 migrations to schema &quot;PUBLIC&quot;, now at version v2 (execution time 00:00.042s)
-2023-12-09T22:47:39.194+02:00  INFO 19812 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-12-09T22:47:39.262+02:00  INFO 19812 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
-2023-12-09T22:47:39.265+02:00  INFO 19812 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
-2023-12-09T22:47:39.610+02:00  INFO 19812 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-12-09T22:47:40.469+02:00  INFO 19812 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2023-12-09T22:47:40.471+02:00  INFO 19812 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-12-09T22:47:40.969+02:00  INFO 19812 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
-2023-12-09T22:47:41.750+02:00  WARN 19812 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-12-09T22:47:42.270+02:00  INFO 19812 --- [    Test worker] c.e.a.AlexandriaApplicationTests         : Started AlexandriaApplicationTests in 4.925 seconds (process running for 5.936)
+2023-12-09T23:09:25.090+02:00  INFO 12212 --- [    Test worker] c.e.a.AlexandriaApplicationTests         : Starting AlexandriaApplicationTests using Java 20.0.2 with PID 12212 (started by Capybara in C:\alexandria\alexandria-backend)
+2023-12-09T23:09:25.093+02:00  INFO 12212 --- [    Test worker] c.e.a.AlexandriaApplicationTests         : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2023-12-09T23:09:26.143+02:00  INFO 12212 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-09T23:09:26.207+02:00  INFO 12212 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58 ms. Found 8 JPA repository interfaces.
+2023-12-09T23:09:26.629+02:00  INFO 12212 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-12-09T23:09:26.838+02:00  INFO 12212 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:2bee41e5-f9c8-4af0-968d-78ee9b7c64b4 user=SA
+2023-12-09T23:09:26.839+02:00  INFO 12212 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-12-09T23:09:26.907+02:00  INFO 12212 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.22.1 by Redgate
+2023-12-09T23:09:26.907+02:00  INFO 12212 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
+2023-12-09T23:09:26.907+02:00  INFO 12212 --- [    Test worker] o.f.c.internal.license.VersionPrinter    : 
+2023-12-09T23:09:26.953+02:00  INFO 12212 --- [    Test worker] org.flywaydb.core.FlywayExecutor         : Database: jdbc:h2:mem:2bee41e5-f9c8-4af0-968d-78ee9b7c64b4 (H2 2.2)
+2023-12-09T23:09:26.958+02:00  WARN 12212 --- [    Test worker] o.f.c.internal.database.base.Database    : Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2023-12-09T23:09:26.984+02:00  INFO 12212 --- [    Test worker] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table &quot;PUBLIC&quot;.&quot;flyway_schema_history&quot; does not exist yet
+2023-12-09T23:09:26.987+02:00  INFO 12212 --- [    Test worker] o.f.core.internal.command.DbValidate     : Successfully validated 3 migrations (execution time 00:00.015s)
+2023-12-09T23:09:26.993+02:00  INFO 12212 --- [    Test worker] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table &quot;PUBLIC&quot;.&quot;flyway_schema_history&quot; ...
+2023-12-09T23:09:27.021+02:00  INFO 12212 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema &quot;PUBLIC&quot;: &lt;&lt; Empty Schema &gt;&gt;
+2023-12-09T23:09:27.035+02:00  INFO 12212 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;PUBLIC&quot; to version &quot;0 - realization&quot;
+2023-12-09T23:09:27.061+02:00  INFO 12212 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;PUBLIC&quot; to version &quot;1 - isadmin&quot;
+2023-12-09T23:09:27.088+02:00  INFO 12212 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema &quot;PUBLIC&quot; to version &quot;2 - teacher-subjects&quot;
+2023-12-09T23:09:27.098+02:00  INFO 12212 --- [    Test worker] o.f.core.internal.command.DbMigrate      : Successfully applied 3 migrations to schema &quot;PUBLIC&quot;, now at version v2 (execution time 00:00.041s)
+2023-12-09T23:09:27.247+02:00  INFO 12212 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-09T23:09:27.332+02:00  INFO 12212 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2023-12-09T23:09:27.336+02:00  INFO 12212 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-12-09T23:09:27.626+02:00  INFO 12212 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-12-09T23:09:28.549+02:00  INFO 12212 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-12-09T23:09:28.551+02:00  INFO 12212 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-09T23:09:29.053+02:00  INFO 12212 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2023-12-09T23:09:29.839+02:00  WARN 12212 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-09T23:09:30.388+02:00  INFO 12212 --- [    Test worker] c.e.a.AlexandriaApplicationTests         : Started AlexandriaApplicationTests in 5.546 seconds (process running for 6.581)
 </pre>
 </span>
 </div>
@@ -138,7 +138,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.5</a> at 9 дек. 2023 г., 22:47:42</p>
+<a href="http://www.gradle.org">Gradle 8.5</a> at 9 дек. 2023 г., 23:09:30</p>
 </div>
 </div>
 </body>
