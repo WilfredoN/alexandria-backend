@@ -20,6 +20,7 @@ public class TeacherController {
 
     @GetMapping
     public List<TeacherDTO> getTeacher() {
+        log.info("Get all teachers");
         return teacherService.findTeachers();
     }
 
@@ -30,6 +31,7 @@ public class TeacherController {
 
     @PostMapping("/login")
     public TeacherDTO logIn(@RequestBody TeacherDTO teacherDTO) {
+        log.info("Teacher login: {}", teacherDTO.login());
         return teacherService.logIn(teacherDTO);
     }
 
@@ -40,6 +42,7 @@ public class TeacherController {
 
     @PutMapping("/{login}")
     public void updateTeacher(@PathVariable String login, @RequestBody TeacherDTO teacherDTO) {
+        log.info("Update teacher: {}", teacherDTO.login());
         teacherService.update(login, teacherDTO);
     }
 
