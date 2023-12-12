@@ -30,7 +30,6 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.6.0'
     implementation 'com.zaxxer:HikariCP:5.0.1'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
-    implementation 'jakarta.persistence:jakarta.persistence-api:3.1.0'
     implementation 'org.flywaydb:flyway-core:9.22.1'
     implementation 'org.springframework.security:spring-security-crypto:6.1.5'
 }
