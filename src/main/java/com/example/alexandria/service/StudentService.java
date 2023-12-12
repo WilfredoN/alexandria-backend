@@ -1,16 +1,16 @@
 package com.example.alexandria.service;
 
+import com.example.alexandria.exception.UserNotFoundException;
+import com.example.alexandria.repository.StudentRepository;
 import com.example.alexandria.repository.entity.Group;
 import com.example.alexandria.repository.entity.Student;
-import com.example.alexandria.repository.StudentRepository;
 import com.example.alexandria.service.dto.StudentDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -31,11 +31,12 @@ public class StudentService {
     }
 
     public StudentDTO logIn(StudentDTO student) {
-        var foundStudent = studentRepository.findByLogin(student.login());
-        if (foundStudent.isPresent() && foundStudent.get().checkPassword(student.password())) {
-            return mapStudent(foundStudent.get());
+        var foundStudent = studentRepository.findByLogin(student.login())
+                .orElseThrow(() -> new UserNotFoundException("Student not found with login: " + student.login()));
+        if (foundStudent.checkPassword(student.password())) {
+            return mapStudent(foundStudent);
         } else {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Invalid login or password");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
         }
     }
 
@@ -44,13 +45,6 @@ public class StudentService {
                 .map(this::mapStudent)
                 .orElseThrow();
     }
-
-    public StudentDTO findStudentByLogin(String login) {
-        return studentRepository.findByLogin(login)
-                .map(this::mapStudent)
-                .orElseThrow(() -> new HttpClientErrorException(HttpStatusCode.valueOf(404), "Student not found"));
-    }
-
     public List<StudentDTO> findStudents() {
         return studentRepository.findAll().stream()
                 .map(this::mapStudent)

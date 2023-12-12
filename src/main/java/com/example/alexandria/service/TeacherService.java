@@ -1,5 +1,6 @@
 package com.example.alexandria.service;
 
+import com.example.alexandria.exception.UserNotFoundException;
 import com.example.alexandria.repository.TeacherRepository;
 import com.example.alexandria.repository.entity.Teacher;
 import com.example.alexandria.service.dto.GroupDTO;
@@ -8,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +31,12 @@ public class TeacherService {
     }
 
     public TeacherDTO logIn(TeacherDTO teacher) {
-        var foundTeacher = teacherRepository.findByLogin(teacher.login());
-        if (foundTeacher.isPresent() && foundTeacher.get().checkPassword(teacher.password())) {
-            return mapTeacher(foundTeacher.get());
+        var foundTeacher = teacherRepository.findByLogin(teacher.login())
+                .orElseThrow(() -> new UserNotFoundException("Teacher not found with login: " + teacher.login()));
+        if (foundTeacher.checkPassword(teacher.password())) {
+            return mapTeacher(foundTeacher);
         } else {
-            throw new HttpClientErrorException(HttpStatus.NOT_FOUND, "Invalid login or password");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
         }
     }
 
@@ -61,6 +63,7 @@ public class TeacherService {
                 .map(this::mapTeacher)
                 .orElseThrow();
     }
+
     public List<TeacherDTO> findTeachers() {
         return teacherRepository.findAll().stream()
                 .map(this::mapTeacher)
