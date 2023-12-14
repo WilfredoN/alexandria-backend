@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.time.Instant;
 
@@ -28,15 +27,8 @@ public class Student {
     @LastModifiedDate
     private Instant updatedAt;
 
-    private String full_name;
+    private String fullName;
     private String login;
     private String password;
-    private String group_name;
-    public void setPassword(String password) {
-        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
-
-    public boolean checkPassword(String password) {
-        return BCrypt.checkpw(password, this.password);
-    }
+    private String groupName;
 }

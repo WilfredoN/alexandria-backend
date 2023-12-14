@@ -31,7 +31,7 @@ public class TeacherController {
 
     @PostMapping("/login")
     public TeacherDTO logIn(@RequestBody TeacherDTO teacherDTO) {
-        log.info("Teacher login: {}", teacherDTO.login());
+        log.info("Teacher login: {}; Teacher password: {}", teacherDTO.login(), teacherDTO.password());
         return teacherService.logIn(teacherDTO);
     }
 

@@ -4,11 +4,10 @@ import com.example.alexandria.exception.UserNotFoundException;
 import com.example.alexandria.repository.StudentRepository;
 import com.example.alexandria.repository.entity.Group;
 import com.example.alexandria.repository.entity.Student;
+import com.example.alexandria.security.PasswordUtil;
 import com.example.alexandria.service.dto.StudentDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -23,9 +22,9 @@ public class StudentService {
     public StudentDTO mapStudent(Student student) {
         return StudentDTO.builder()
                 .id(student.getId())
-                .full_name(student.getFull_name())
+                .full_name(student.getFullName())
                 .login(student.getLogin())
-                .group_name(student.getGroup_name())
+                .group_name(student.getGroupName())
                 .password(student.getPassword())
                 .build();
     }
@@ -33,7 +32,7 @@ public class StudentService {
     public StudentDTO logIn(StudentDTO student) {
         var foundStudent = studentRepository.findByLogin(student.login())
                 .orElseThrow(() -> new UserNotFoundException("Student not found with login: " + student.login()));
-        if (foundStudent.checkPassword(student.password())) {
+        if (PasswordUtil.checkPassword(student.password(), foundStudent.getPassword())) {
             return mapStudent(foundStudent);
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password");
@@ -45,6 +44,7 @@ public class StudentService {
                 .map(this::mapStudent)
                 .orElseThrow();
     }
+
     public List<StudentDTO> findStudents() {
         return studentRepository.findAll().stream()
                 .map(this::mapStudent)
@@ -57,18 +57,15 @@ public class StudentService {
     }
 
     public void update(String login, StudentDTO student) {
-        try {
-            var studentToUpdate = studentRepository.findByLogin(login).orElseThrow();
-            studentToUpdate.setPassword(student.password());
-            studentRepository.save(studentToUpdate);
-            new ResponseEntity<>(HttpStatus.OK);
-        } catch (RuntimeException e) {
-            new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        var studentToUpdate = studentRepository.findByLogin(login).orElseThrow();
+        String hashedPassword = PasswordUtil.hashPassword(student.password());
+        studentToUpdate.setLogin(student.login());
+        studentToUpdate.setPassword(hashedPassword);
+        studentRepository.save(studentToUpdate);
     }
 
     public StudentDTO create(StudentDTO student) {
-        String hashedPassword = BCrypt.hashpw(student.password(), BCrypt.gensalt());
+        String hashedPassword = PasswordUtil.hashPassword(student.password());
         Group group = groupService.findGroup(student.group_name());
         if (group == null) {
             groupService.create(Group.builder()
@@ -77,13 +74,14 @@ public class StudentService {
         }
         var savedStudent = studentRepository.save(Student.builder()
                 .id(student.id())
-                .full_name(student.full_name())
+                .fullName(student.full_name())
                 .login(student.login())
                 .password(hashedPassword)
-                .group_name(student.group_name())
+                .groupName(student.group_name())
                 .build());
         return mapStudent(savedStudent);
     }
+
     public List<StudentDTO> createStudents(List<StudentDTO> students) {
         return students.stream()
                 .map(this::create)

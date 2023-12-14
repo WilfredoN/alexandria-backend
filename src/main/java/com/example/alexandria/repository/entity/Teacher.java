@@ -30,8 +30,8 @@ public class Teacher {
     @LastModifiedDate
     private Instant updatedAt;
 
-    private String full_name;
-    private boolean is_admin;
+    private String fullName;
+    private boolean isAdmin;
     private String login;
     private String password;
     @ManyToMany
