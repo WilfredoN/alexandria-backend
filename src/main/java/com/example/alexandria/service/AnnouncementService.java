@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 @RequiredArgsConstructor
 public class AnnouncementService {
@@ -23,7 +21,7 @@ public class AnnouncementService {
                 .id(announcement.getId())
                 .title(announcement.getTitle())
                 .content(announcement.getContent())
-                .author_id(announcement.getAuthor_id().getId())
+                .author_id(announcement.getAuthorId().getId())
                 .created_at(announcement.getPostedAt())
                 .updated_at(announcement.getEditedAt())
                 .build();
@@ -44,7 +42,7 @@ public class AnnouncementService {
     public List<AnnouncementDTO> findAnnouncements() {
         return announcementRepository.findAll().stream()
                 .map(this::mapAnnouncements)
-                .collect(toList());
+                .toList();
     }
 
     public void delete(Long id) {
@@ -64,7 +62,7 @@ public class AnnouncementService {
                 .id(announcement.id())
                 .title(announcement.title())
                 .content(announcement.content())
-                .author_id(Teacher.builder().id(announcement.author_id()).build())
+                .authorId(Teacher.builder().id(announcement.author_id()).build())
                 .build());
         return mapAnnouncements(newAnnouncement);
     }

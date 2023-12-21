@@ -5,6 +5,7 @@ import com.example.alexandria.repository.TeacherRepository;
 import com.example.alexandria.repository.entity.Teacher;
 import com.example.alexandria.security.PasswordUtil;
 import com.example.alexandria.service.dto.GroupDTO;
+import com.example.alexandria.service.dto.SubjectDTO;
 import com.example.alexandria.service.dto.TeacherDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,43 @@ public class TeacherService {
         }
     }
 
-    public List<GroupDTO> getTeacherWithGroups(long teacherId) {
+
+    public TeacherDTO findTeacher(long id) {
+        return teacherRepository.findById(id)
+                .map(this::mapTeacher)
+                .orElseThrow();
+    }
+
+    public List<TeacherDTO> findTeachers() {
+        return teacherRepository.findAll().stream()
+                .map(this::mapTeacher)
+                .toList();
+    }
+
+    public void delete(String login) {
+        var teacher = teacherRepository.findByLogin(login).orElseThrow();
+        teacherRepository.delete(teacher);
+    }
+
+    public void update(String login, TeacherDTO teacher) {
+        var teacherToUpdate = teacherRepository.findByLogin(login).orElseThrow();
+        String hashedPassword = PasswordUtil.hashPassword(teacher.password());
+        teacherToUpdate.setPassword(hashedPassword);
+        teacherToUpdate.setAdmin(teacher.is_admin());
+        teacherRepository.save(teacherToUpdate);
+    }
+
+    public TeacherDTO create(TeacherDTO teacher) {
+        String hashedPassword = PasswordUtil.hashPassword(teacher.password());
+        var savedTeacher = teacherRepository.save(Teacher.builder()
+                .fullName(teacher.full_name())
+                .login(teacher.login())
+                .isAdmin(teacher.is_admin())
+                .password(hashedPassword)
+                .build());
+        return mapTeacher(savedTeacher);
+    }
+    public List<GroupDTO> findGroupsByTeacher(long teacherId) {
         Optional<Teacher> optionalTeacher = teacherRepository.findByIdWithGroups(teacherId);
         List<GroupDTO> groupDTOs = new ArrayList<>();
         if (optionalTeacher.isPresent()) {
@@ -57,49 +94,20 @@ public class TeacherService {
         return groupDTOs;
     }
 
-
-    public TeacherDTO findTeacher(long id) {
-        return teacherRepository.findById(id)
-                .map(this::mapTeacher)
-                .orElseThrow();
+    public List<SubjectDTO> findSubjectsByTeacher(long teacherId) {
+        Optional<Teacher> optionalTeacher = teacherRepository.findByIdWithSubjects(teacherId);
+        List<SubjectDTO> subjectDTOs = new ArrayList<>();
+        if (optionalTeacher.isPresent()) {
+            Teacher teacher = optionalTeacher.get();
+            subjectDTOs = teacher.getSubjects().stream()
+                    .map(subject -> SubjectDTO.builder()
+                            .id(subject.getId())
+                            .subject_name(subject.getSubjectName())
+                            .build())
+                    .toList();
+        }
+        return subjectDTOs;
     }
 
-    public List<TeacherDTO> findTeachers() {
-        return teacherRepository.findAll().stream()
-                .map(this::mapTeacher)
-                .toList();
-    }
-
-    public List<TeacherDTO> findTeacherByGroup(String groupName) {
-        List<Teacher> teachers = teacherRepository.findByGroupsName(groupName);
-        return teachers.stream()
-                .map(this::mapTeacher)
-                .toList();
-    }
-
-    public void delete(String login) {
-        var teacher = teacherRepository.findByLogin(login).orElseThrow();
-        teacherRepository.delete(teacher);
-    }
-
-   public void update(String login, TeacherDTO teacher) {
-    var teacherToUpdate = teacherRepository.findByLogin(login).orElseThrow();
-    String hashedPassword = PasswordUtil.hashPassword(teacher.password());
-    teacherToUpdate.setLogin(teacher.login());
-    teacherToUpdate.setPassword(hashedPassword);
-    teacherToUpdate.setAdmin(teacher.is_admin());
-    teacherRepository.save(teacherToUpdate);
-}
-
-    public TeacherDTO create(TeacherDTO teacher) {
-        String hashedPassword = PasswordUtil.hashPassword(teacher.password());
-        var savedTeacher = teacherRepository.save(Teacher.builder()
-                .fullName(teacher.full_name())
-                .login(teacher.login())
-                .isAdmin(teacher.is_admin())
-                .password(hashedPassword)
-                .build());
-        return mapTeacher(savedTeacher);
-    }
 }
 

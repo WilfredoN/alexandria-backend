@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
 @Service
 @RequiredArgsConstructor
 public class GroupService {
@@ -31,7 +29,7 @@ public class GroupService {
     public List<Group> findGroups() {
         return groupRepository.findAll().stream()
                 .map(this::mapGroup)
-                .collect(toList());
+                .toList();
     }
 
     private Group mapGroup(Group group) {
@@ -55,9 +53,9 @@ public class GroupService {
     }
 
     @Transactional
-    public void assignGroupsToTeacher(long teacher_id, List<Long> group_ids) {
-        var teacher = teacherRepository.findById(teacher_id).orElseThrow(() -> new RuntimeException("Teacher not found"));
-        List<Group> groups = groupRepository.findAllById(group_ids);
+    public void assignGroupsToTeacher(long teacherId, List<Long> groupIds) {
+        var teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher not found"));
+        List<Group> groups = groupRepository.findAllById(groupIds);
         teacher.setGroups(groups);
         teacherRepository.save(teacher);
 

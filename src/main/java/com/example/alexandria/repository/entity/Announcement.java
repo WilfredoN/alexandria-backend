@@ -26,7 +26,7 @@ public class Announcement {
     private String content;
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private Teacher author_id;
+    private Teacher authorId;
     @CreatedDate
     private Instant postedAt;
     @LastModifiedDate

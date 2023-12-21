@@ -3,6 +3,7 @@ package com.example.alexandria.controller;
 
 import com.example.alexandria.service.TeacherService;
 import com.example.alexandria.service.dto.GroupDTO;
+import com.example.alexandria.service.dto.SubjectDTO;
 import com.example.alexandria.service.dto.TeacherDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,14 +49,12 @@ public class TeacherController {
 
     @GetMapping("/{teacherId}/groups")
     public List<GroupDTO> getTeacherGroups(@PathVariable long teacherId) {
-        return teacherService.getTeacherWithGroups(teacherId);
+        return teacherService.findGroupsByTeacher(teacherId);
     }
-
-    @GetMapping("/groups/{groupName}")
-    public List<TeacherDTO> getTeacherByGroup(@PathVariable String groupName) {
-        return teacherService.findTeacherByGroup(groupName);
+    @GetMapping("/{teacherId}/subjects")
+    public List<SubjectDTO> getTeacherSubjects(@PathVariable long teacherId) {
+        return teacherService.findSubjectsByTeacher(teacherId);
     }
-
     @DeleteMapping("/{login}")
     public void deleteTeacher(@PathVariable String login) {
         teacherService.delete(login);

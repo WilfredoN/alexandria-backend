@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,10 +14,10 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     Optional<Teacher> findByLogin(String login);
 
-    List<Teacher> findTeachersByGroups_Name(String name);
-
     @Query("SELECT t FROM Teacher t LEFT JOIN FETCH t.groups WHERE t.id = :teacherId")
-    Optional<Teacher> findByIdWithGroups(@Param("teacherId") long teacherId);
+    Optional<Teacher> findByIdWithGroups(long teacherId);
 
-    List<Teacher> findByGroupsName(String groupName);
+    @Query("SELECT t FROM Teacher t LEFT JOIN FETCH t.subjects WHERE t.id = :teacherId")
+    Optional<Teacher> findByIdWithSubjects(@Param("teacherId") long teacherId);
+
 }

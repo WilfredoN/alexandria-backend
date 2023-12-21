@@ -35,7 +35,10 @@ public class SubjectController {
     public void deleteSubject(@PathVariable long id) {
         subjectService.delete(id);
     }
-
+    @PostMapping("/assign/{teacherId}")
+    public void assignSubjects(@PathVariable long teacherId, @RequestBody List<Long> subjectIds) {
+        subjectService.assignSubjectsToTeacher(teacherId, subjectIds);
+    }
     @PutMapping("/update")
     public SubjectDTO updateSubject(@RequestBody SubjectDTO subject) {
         return subjectService.update(subject);

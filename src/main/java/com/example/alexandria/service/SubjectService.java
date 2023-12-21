@@ -1,8 +1,10 @@
 package com.example.alexandria.service;
 
 import com.example.alexandria.repository.SubjectRepository;
+import com.example.alexandria.repository.TeacherRepository;
 import com.example.alexandria.repository.entity.Subject;
 import com.example.alexandria.service.dto.SubjectDTO;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SubjectService {
     private final SubjectRepository subjectRepository;
+    private final TeacherRepository teacherRepository;
 
     public SubjectDTO findSubject(Long id) {
         return subjectRepository.findSubjectById(id)
@@ -51,5 +54,13 @@ public class SubjectService {
 
     public void delete(Long id) {
         subjectRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void assignSubjectsToTeacher(long teacherId, List<Long> subjectIds) {
+        var teacher = teacherRepository.findById(teacherId).orElseThrow(() -> new RuntimeException("Teacher not found"));
+        List<Subject> subjects = subjectRepository.findAllById(subjectIds);
+        teacher.setSubjects(subjects);
+        teacherRepository.save(teacher);
     }
 }
