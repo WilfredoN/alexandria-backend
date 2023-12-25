@@ -27,6 +27,7 @@ public class TeacherController {
 
     @GetMapping("/{id}")
     public TeacherDTO findTeacherById(@PathVariable long id) {
+        log.info("Get teacher by id: {}", id);
         return teacherService.findTeacher(id);
     }
 
@@ -51,10 +52,12 @@ public class TeacherController {
     public List<GroupDTO> getTeacherGroups(@PathVariable long teacherId) {
         return teacherService.findGroupsByTeacher(teacherId);
     }
+
     @GetMapping("/{teacherId}/subjects")
     public List<SubjectDTO> getTeacherSubjects(@PathVariable long teacherId) {
         return teacherService.findSubjectsByTeacher(teacherId);
     }
+
     @DeleteMapping("/{login}")
     public void deleteTeacher(@PathVariable String login) {
         teacherService.delete(login);

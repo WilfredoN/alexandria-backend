@@ -4,6 +4,7 @@ package com.example.alexandria.service;
 import com.example.alexandria.repository.entity.Group;
 import com.example.alexandria.repository.GroupRepository;
 import com.example.alexandria.repository.TeacherRepository;
+import com.example.alexandria.service.dto.GroupDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,28 +22,30 @@ public class GroupService {
                 .orElse(null);
     }
 
-    public Group findGroup(Long id) {
+    public GroupDTO findGroup(Long id) {
         return groupRepository.findGroupById(id)
+                .map(this::mapGroup)
                 .orElse(null);
     }
 
-    public List<Group> findGroups() {
+    public List<GroupDTO> findGroups() {
         return groupRepository.findAll().stream()
                 .map(this::mapGroup)
                 .toList();
     }
 
-    private Group mapGroup(Group group) {
-        return Group.builder()
+    private GroupDTO mapGroup(Group group) {
+        return GroupDTO.builder()
                 .id(group.getId())
                 .name(group.getName())
                 .build();
     }
 
-    public Group create(Group group) {
-        return groupRepository.save(Group.builder()
+    public GroupDTO create(Group group) {
+        var savedGroup = groupRepository.save(Group.builder()
                 .name(group.getName())
                 .build());
+        return mapGroup(savedGroup);
     }
 
     public Group update(Group group) {

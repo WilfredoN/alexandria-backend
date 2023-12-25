@@ -1,15 +1,12 @@
 package com.example.alexandria.service.dto;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
-@RequiredArgsConstructor
-public class GroupDTO {
-    private Long id;
-    private String name;
 
+@Builder
+public record GroupDTO(
+        Long id,
+        String name
+) {
 }
 

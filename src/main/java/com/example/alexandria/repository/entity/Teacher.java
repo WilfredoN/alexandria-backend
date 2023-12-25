@@ -33,14 +33,14 @@ public class Teacher {
     private boolean isAdmin;
     private String login;
     private String password;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "groups_teachers",
             joinColumns = @JoinColumn(name = "teacher_id"),
             inverseJoinColumns = @JoinColumn(name = "group_id")
     )
     private List<Group> groups;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "subjects_teachers",
             joinColumns = @JoinColumn(name = "teacher_id"),

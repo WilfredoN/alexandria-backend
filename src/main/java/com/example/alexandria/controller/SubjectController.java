@@ -37,6 +37,7 @@ public class SubjectController {
     }
     @PostMapping("/assign/{teacherId}")
     public void assignSubjects(@PathVariable long teacherId, @RequestBody List<Long> subjectIds) {
+        log.info("Assigning subjects {} to teacher {}", subjectIds, teacherId);
         subjectService.assignSubjectsToTeacher(teacherId, subjectIds);
     }
     @PutMapping("/update")

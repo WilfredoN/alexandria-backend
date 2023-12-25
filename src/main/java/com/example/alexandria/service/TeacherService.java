@@ -21,15 +21,23 @@ import java.util.Optional;
 public class TeacherService {
     private final TeacherRepository teacherRepository;
 
-    public TeacherDTO mapTeacher(Teacher teacher) {
-        return TeacherDTO.builder()
-                .id(teacher.getId())
-                .full_name(teacher.getFullName())
-                .login(teacher.getLogin())
-                .is_admin(teacher.isAdmin())
-                .password(teacher.getPassword())
-                .build();
-    }
+   public TeacherDTO mapTeacher(Teacher teacher) {
+    return TeacherDTO.builder()
+            .id(teacher.getId())
+            .full_name(teacher.getFullName())
+            .login(teacher.getLogin())
+            .is_admin(teacher.isAdmin())
+            .password(teacher.getPassword())
+            .groups(teacher.getGroups().stream().map(group -> GroupDTO.builder()
+                    .id(group.getId())
+                    .name(group.getName())
+                    .build()).toList())
+            .subjects(teacher.getSubjects().stream().map(subject -> SubjectDTO.builder()
+                    .id(subject.getId())
+                    .subject_name(subject.getSubjectName())
+                    .build()).toList())
+            .build();
+}
 
     public TeacherDTO logIn(TeacherDTO teacher) {
         var foundTeacher = teacherRepository.findByLogin(teacher.login())
@@ -83,12 +91,10 @@ public class TeacherService {
         if (optionalTeacher.isPresent()) {
             Teacher teacher = optionalTeacher.get();
             groupDTOs = teacher.getGroups().stream()
-                    .map(group -> {
-                        GroupDTO dto = new GroupDTO();
-                        dto.setId(group.getId());
-                        dto.setName(group.getName());
-                        return dto;
-                    })
+                    .map(group -> GroupDTO.builder()
+                            .id(group.getId())
+                            .name(group.getName())
+                            .build())
                     .toList();
         }
         return groupDTOs;
