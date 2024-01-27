@@ -48,7 +48,7 @@ public class StudentController {
         return studentService.createStudents(studentDTOs);
     }
 
-    @PutMapping("/{login}")
+    @PutMapping("/update/{login}")
     public void updateStudent(@PathVariable String login, @RequestBody StudentDTO studentDTO) {
         studentService.update(login, studentDTO);
 

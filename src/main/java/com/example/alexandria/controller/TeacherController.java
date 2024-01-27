@@ -42,7 +42,7 @@ public class TeacherController {
         return teacherService.create(teacherDTO);
     }
 
-    @PutMapping("/{login}")
+    @PutMapping("/update/{login}")
     public void updateTeacher(@PathVariable String login, @RequestBody TeacherDTO teacherDTO) {
         log.info("Update teacher: {}", teacherDTO.login());
         teacherService.update(login, teacherDTO);

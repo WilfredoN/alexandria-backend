@@ -58,9 +58,11 @@ public class StudentService {
 
     public void update(String login, StudentDTO student) {
         var studentToUpdate = studentRepository.findByLogin(login).orElseThrow();
-        String hashedPassword = PasswordUtil.hashPassword(student.password());
+        if (!PasswordUtil.checkPassword(student.password(), studentToUpdate.getPassword())) {
+            String hashedPassword = PasswordUtil.hashPassword(student.password());
+            studentToUpdate.setPassword(hashedPassword);
+        }
         studentToUpdate.setLogin(student.login());
-        studentToUpdate.setPassword(hashedPassword);
         studentRepository.save(studentToUpdate);
     }
 
